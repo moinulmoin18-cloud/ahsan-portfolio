@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /private/
 
 Sitemap: https://moinulahsanmoin.pages.dev/sitemap.xml
 Sitemap: https://moinulmoin18-cloud.github.io/sitemap.xml

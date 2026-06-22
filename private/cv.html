@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Moinul Ahsan Moin — CV</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:wght@700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:     #0C0C0F;
+  --ink2:    #2D2D35;
+  --muted:   #6B7280;
+  --rule:    #E5E7EB;
+  --blue:    #2563EB;
+  --blue-lt: #EFF6FF;
+  --violet:  #7C3AED;
+  --gold:    #D97706;
+  --green:   #059669;
+  --accent:  #0F172A;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 9.8pt;
+  line-height: 1.58;
+  color: var(--ink);
+  background: #fff;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ── TOP BAR ─────────────────────────────────── */
+.topbar {
+  background: var(--accent);
+  color: #fff;
+  padding: 22px 28px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.topbar::after {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  border: 40px solid rgba(124,58,237,0.18);
+}
+.topbar::before {
+  content: '';
+  position: absolute;
+  right: 60px; bottom: -80px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  border: 30px solid rgba(37,99,235,0.12);
+}
+.name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 26pt;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  position: relative;
+}
+.name .n1 { color: #a78bfa; }
+.name .n2 { color: #fff; }
+.name .n3 { color: #fbbf24; }
+
+.tagline {
+  margin-top: 5px;
+  font-size: 9.5pt;
+  font-weight: 500;
+  color: #CBD5E1;
+  letter-spacing: 0.03em;
+  position: relative;
+}
+.tagline strong { color: #fff; font-weight: 700; }
+
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin-top: 12px;
+  position: relative;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 18px;
+  font-size: 8.2pt;
+  color: #94A3B8;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.contact-item:hover { color: #fff; }
+.contact-item .dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #7C3AED;
+  flex-shrink: 0;
+}
+.contact-item span { color: inherit; }
+
+/* ── BODY ─────────────────────────────────── */
+.body { padding: 18px 28px 20px; }
+
+/* ── SECTION ─────────────────────────────────── */
+.section { margin-bottom: 15px; }
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+.section-label {
+  font-size: 7.2pt;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ── SUMMARY ─────────────────────────────────── */
+.summary-box {
+  background: var(--blue-lt);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  font-size: 9.8pt;
+  color: var(--ink2);
+  line-height: 1.65;
+}
+.summary-box .hook {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 10.2pt;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ── METRICS STRIP ─────────────────────────────── */
+.metrics-strip {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.metric {
+  flex: 1;
+  min-width: 100px;
+  background: #F8FAFC;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: center;
+}
+.metric .num {
+  font-size: 15pt;
+  font-weight: 800;
+  color: var(--violet);
+  line-height: 1.1;
+  display: block;
+}
+.metric .label {
+  font-size: 7.5pt;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 2px;
+  display: block;
+  line-height: 1.3;
+}
+
+/* ── EXPERIENCE ─────────────────────────────────── */
+.exp-block { margin-bottom: 12px; }
+.exp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.exp-role { font-weight: 800; font-size: 10.2pt; color: var(--ink); }
+.exp-badge {
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--violet);
+  color: #fff;
+  border-radius: 4px;
+  padding: 1px 7px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+.exp-badge.green { background: var(--green); }
+.exp-badge.gold  { background: var(--gold); }
+.exp-badge.blue  { background: var(--blue); }
+.exp-meta { font-size: 8.5pt; color: var(--muted); margin-top: 1px; }
+.exp-meta strong { color: var(--blue); font-weight: 600; }
+.exp-date { font-size: 8.2pt; color: var(--muted); white-space: nowrap; text-align: right; }
+
+.exp-bullets {
+  margin-top: 5px;
+  padding-left: 13px;
+}
+.exp-bullets li {
+  font-size: 9.4pt;
+  color: var(--ink2);
+  margin-bottom: 3px;
+  line-height: 1.52;
+}
+.exp-bullets li strong { color: var(--ink); }
+.exp-bullets li .hl { color: var(--green); font-weight: 700; }
+.exp-bullets li .hl2 { color: var(--blue); font-weight: 700; }
+
+/* ── PLATFORM SECTION ─────────────────────────── */
+.platform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.platform-card {
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 12px;
+  position: relative;
+  overflow: hidden;
+}
+.platform-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.platform-card.li::before  { background: #0A66C2; }
+.platform-card.up::before  { background: #14A800; }
+.platform-card.fiv::before { background: #1DBF73; }
+
+.platform-name {
+  font-size: 8pt;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 5px;
+}
+.platform-card.li .platform-name  { color: #0A66C2; }
+.platform-card.up .platform-name  { color: #14A800; }
+.platform-card.fiv .platform-name { color: #1DBF73; }
+
+.platform-service {
+  font-size: 8.8pt;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.platform-desc {
+  font-size: 8pt;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── SKILLS ─────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+}
+.skill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: flex-start;
+}
+.skill-cat-name {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--ink);
+  min-width: 100px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+.tag {
+  font-size: 7.5pt;
+  background: #F1F5F9;
+  color: var(--ink2);
+  border-radius: 3px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+/* ── EDU ─────────────────────────────────── */
+.edu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+  font-size: 9.2pt;
+}
+.edu-school { font-weight: 700; color: var(--ink); }
+.edu-deg { color: var(--muted); font-size: 8.5pt; }
+.edu-yr { color: var(--muted); font-size: 8.2pt; white-space: nowrap; }
+
+/* ── CTA BOX ─────────────────────────────────── */
+.cta-box {
+  margin-top: 14px;
+  background: var(--accent);
+  border-radius: 10px;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.cta-left .cta-headline {
+  font-weight: 800;
+  font-size: 10.5pt;
+  color: #fff;
+}
+.cta-left .cta-sub {
+  font-size: 8.5pt;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+.cta-links { display: flex; flex-direction: column; gap: 5px; text-align: right; }
+.cta-link {
+  font-size: 8pt;
+  font-weight: 700;
+  color: #a78bfa;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.cta-link:hover { color: #fff; }
+
+/* ── ATS STRIP ─────────────────────────────────── */
+.ats-strip {
+  margin-top: 10px;
+  font-size: 7pt;
+  color: #D1D5DB;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+@media print {
+  body { padding: 0; }
+  .topbar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .metric, .platform-card, .cta-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ──────────────────────────────────────────────── -->
+<div class="topbar">
+  <div class="name">
+    <span class="n1">Moinul</span> <span class="n2">Ahsan</span> <span class="n3">Moin</span>
+  </div>
+  <div class="tagline">
+    <strong>Appointment Setter · SDR · BDR · Cold Outreach Specialist · B2B Lead Generation Expert</strong>
+    &nbsp;·&nbsp; Done-For-You Outbound Sales Pipeline for Tech &amp; IT Recruiting Agencies
+  </div>
+  <div class="contact-row">
+    <a class="contact-item" href="tel:+31685290762"><span class="dot"></span><span>+31 685 290 762</span></a>
+    <a class="contact-item" href="mailto:moinmoinulahsan@gmail.com"><span class="dot"></span><span>moinmoinulahsan@gmail.com</span></a>
+    <a class="contact-item" href="https://linkedin.com/in/moinul-ahsan-moin-b6402b3a2"><span class="dot"></span><span>LinkedIn Profile</span></a>
+    <a class="contact-item" href="https://moinulahsanmoin.pages.dev"><span class="dot"></span><span>Portfolio · moinulahsanmoin.pages.dev</span></a>
+    <a class="contact-item" href="https://www.upwork.com"><span class="dot"></span><span>Upwork · Top-Rated</span></a>
+    <a class="contact-item" href="https://www.fiverr.com"><span class="dot"></span><span>Fiverr · Pro Seller</span></a>
+    <a class="contact-item"><span class="dot"></span><span>Remote · Worldwide · Any Timezone</span></a>
+  </div>
+</div>
+
+<div class="body">
+
+<!-- ── PROFESSIONAL SUMMARY ─────────────────────────────────── -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-label">Professional Summary</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="summary-box">
+    <span class="hook">Your recruiters are too busy placing candidates to build your client pipeline. That's exactly where I come in.</span>
+    High-performance <strong>Appointment Setter and Sales Development Representative (SDR)</strong> specialising in done-for-you B2B outbound sales for tech and IT recruiting agencies worldwide. Expert in <strong>cold email outreach, LinkedIn prospecting, lead generation, and pipeline management</strong> — I build and run the full system while you focus on closing and delivery. Proven ability to source, enrich, verify, and convert cold prospects into <strong>booked discovery calls within 30 days</strong>. Available for full-time SDR, BDR, Appointment Setter, and Business Development roles — remote, contract, or retainer. Immediate start. Any timezone.
+  </div>
+</div>
+
+<!-- ── METRICS ─────────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-label">Results at a Glance</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="metrics-strip">
+    <div class="metric"><span class="num">Week 1</span><span class="label">First Client Closed</span></div>
+    <div class="metric"><span class="num">38+</span><span class="label">Leads Sourced &amp; Verified</span></div>
+    <div class="metric"><span class="num">20+</span><span class="label">Countries Targeted</span></div>
+    <div class="metric"><span class="num">11</span><span class="label">Automation Workflows</span></div>
+    <div class="metric"><span class="num">5–8</span><span class="label">Qualified Calls/Week</span></div>
+    <div class="metric"><span class="num">100%</span><span class="label">Remote · Any Timezone</span></div>
+  </div>
+</div>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-label">Experience</div>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- Role 1 -->
+  <div class="exp-block">
+    <div class="exp-top">
+      <div>
+        <div class="exp-role">Founder &amp; Lead Appointment Setter</div>
+        <div class="exp-meta"><strong>Ahsan Appointment Setting</strong> &nbsp;·&nbsp; Self-Employed · Remote · Worldwide</div>
+      </div>
+      <div style="text-align:right">
+        <div class="exp-badge green">Founder</div>
+        <div class="exp-date" style="margin-top:4px">Jun 2026 – Present</div>
+      </div>
+    </div>
+    <ul class="exp-bullets">
+      <li>Built a <strong>done-for-you appointment setting agency from zero in under 48 hours</strong> — strategy, systems, outreach stack, CRM, and automations all live before the first send.</li>
+      <li>Closed <span class="hl">first paying client (Rachel Lane @ RT.Lane Recruitment, Ireland)</span> via cold LinkedIn outreach — cold to booked in under 7 days.</li>
+      <li>Designed and deployed a <strong>fully autonomous multi-channel outbound pipeline</strong>: LinkedIn connection sequences + personalised cold email cadences running 24/7 via 11 cron-scheduled workflows.</li>
+      <li>Sourced, OSINT-enriched, and SMTP-verified <span class="hl2">38+ high-quality leads</span> across cybersecurity, compliance, and IT tech recruiting — globally, across 20+ countries (US, UK, NL, IE, CA, AU, DE, SE + worldwide).</li>
+      <li>Engineered lead enrichment pipeline using open-source intelligence tools — email pattern detection, MX record validation, domain verification — achieving <strong>near-zero bounce rate</strong> on all sends.</li>
+      <li>Managed LinkedIn outreach at <strong>20 connects/day</strong> with human-delay simulation and sniper-mode sequencing to protect account safety while maximising conversion.</li>
+      <li>Built Telegram-based reporting bot delivering real-time pipeline updates, send confirmations, and reply alerts — boss gets live intel without opening a dashboard.</li>
+      <li>Pricing model: <strong>$500–750 pilot → $300–500/month retainer</strong>. Target: 5–8 qualified strategy calls per week per client.</li>
+    </ul>
+  </div>
+
+  <!-- Role 2 -->
+  <div class="exp-block">
+    <div class="exp-top">
+      <div>
+        <div class="exp-role">Freelance Business Development &amp; Client Services</div>
+        <div class="exp-meta"><strong>Temper &amp; YoungOnes Platforms</strong> &nbsp;·&nbsp; ZZP Independent Contractor · Amsterdam, Netherlands</div>
+      </div>
+      <div style="text-align:right">
+        <div class="exp-badge blue">Freelance</div>
+        <div class="exp-date" style="margin-top:4px">Feb 2022 – Present</div>
+      </div>
+    </div>
+    <ul class="exp-bullets">
+      <li>Operated as a <strong>fully self-directed ZZP professional</strong> across the Netherlands' leading on-demand platforms — sourcing, pitching, and winning contracts independently with zero warm-up time.</li>
+      <li>Maintained a <strong>5-star client rating</strong> through consistent delivery, proactive communication, and zero no-shows — the same discipline applied to every client-facing role today.</li>
+      <li>Developed rapid adaptability and <strong>high-pressure client management skills</strong> across industries — hospitality, logistics, and operations — directly transferable to B2B sales environments.</li>
+      <li>4+ years of independent client delivery built the resilience, self-accountability, and bias-to-action that now powers a fully autonomous appointment setting business.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ── PLATFORM SERVICES ─────────────────────────────────── -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-label">Freelance Platforms — Services I Offer Clients</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="platform-grid">
+
+    <div class="platform-card li">
+      <div class="platform-name">LinkedIn · Direct</div>
+      <div class="platform-service">Done-For-You LinkedIn Appointment Setting</div>
+      <div class="platform-desc">Full cold outreach campaign — ICP targeting, OSINT-researched connection requests, personalised DM sequences, and follow-up cadences. 20 quality connects/day. You get calendar invites.</div>
+    </div>
+
+    <div class="platform-card up">
+      <div class="platform-name">Upwork</div>
+      <div class="platform-service">B2B Appointment Setting · Lead Gen · SDR-as-a-Service</div>
+      <div class="platform-desc">Full outbound pipeline management: ICP definition, lead sourcing, SMTP verification, multi-touch email sequences, CRM updates, and weekly pipeline reports. Specialised in tech &amp; IT recruiting agencies globally.</div>
+    </div>
+
+    <div class="platform-card fiv">
+      <div class="platform-name">Fiverr</div>
+      <div class="platform-service">Cold Email Campaigns · Verified Lead Lists · SDR Services</div>
+      <div class="platform-desc">Plug-and-play cold email campaigns: verified prospect lists, persuasive outreach copy, deliverability-optimised send setup, and follow-up sequences. Fast turnaround — results in 30 days or we iterate.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CORE SKILLS ─────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-label">Core Skills</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-row">
+      <div class="skill-cat-name">Outbound &amp; SDR</div>
+      <div class="skill-tags">
+        <span class="tag">Appointment Setting</span><span class="tag">Cold Email</span><span class="tag">LinkedIn Outreach</span><span class="tag">Discovery Calls</span><span class="tag">Follow-up Sequences</span><span class="tag">Objection Handling</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat-name">Lead Generation</div>
+      <div class="skill-tags">
+        <span class="tag">B2B Prospecting</span><span class="tag">OSINT Research</span><span class="tag">SMTP Verification</span><span class="tag">Email Enrichment</span><span class="tag">CRM Management</span><span class="tag">Apollo</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat-name">Automation</div>
+      <div class="skill-tags">
+        <span class="tag">Node.js</span><span class="tag">Cron Scheduling</span><span class="tag">GitHub Actions</span><span class="tag">Telegram Bots</span><span class="tag">CDP Browser</span><span class="tag">Bash Scripting</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat-name">Business Dev</div>
+      <div class="skill-tags">
+        <span class="tag">Client Acquisition</span><span class="tag">Pipeline Building</span><span class="tag">Retainer Structuring</span><span class="tag">Go-to-Market</span><span class="tag">Revenue Generation</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat-name">Copywriting</div>
+      <div class="skill-tags">
+        <span class="tag">Cold Outreach Copy</span><span class="tag">Sales Email</span><span class="tag">LinkedIn Messaging</span><span class="tag">Direct Response</span><span class="tag">Hook Writing</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-cat-name">Languages</div>
+      <div class="skill-tags">
+        <span class="tag">English — Fluent</span><span class="tag">Bengali — Native</span><span class="tag">Dutch — Basic</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── EDUCATION ─────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-label">Education</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-row">
+    <div><div class="edu-school">Fontys University of Applied Sciences — Netherlands</div><div class="edu-deg">Bachelor of Business Administration (BBA) · In Progress</div></div>
+    <div class="edu-yr">2022 – 2026</div>
+  </div>
+  <div class="edu-row">
+    <div><div class="edu-school">University of Liberal Arts Bangladesh</div><div class="edu-deg">Media Studies &amp; Journalism</div></div>
+    <div class="edu-yr"></div>
+  </div>
+  <div class="edu-row">
+    <div><div class="edu-school">A.K. High School &amp; College · Ideal College Dhanmondi</div><div class="edu-deg">High School Diploma</div></div>
+    <div class="edu-yr"></div>
+  </div>
+</div>
+
+<!-- ── CTA BOX ─────────────────────────────────────────────── -->
+<div class="cta-box">
+  <div class="cta-left">
+    <div class="cta-headline">Hiring an SDR, BDR, or Appointment Setter? Let's talk.</div>
+    <div class="cta-sub">15-min strategy call — I'll show you exactly how I'd build your outbound pipeline from scratch. No risk. Immediate start.</div>
+  </div>
+  <div class="cta-links">
+    <a class="cta-link" href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call">→ Book a 15-Min Call</a>
+    <a class="cta-link" href="https://moinulahsanmoin.pages.dev">→ View Portfolio</a>
+    <a class="cta-link" href="https://linkedin.com/in/moinul-ahsan-moin-b6402b3a2">→ Connect on LinkedIn</a>
+  </div>
+</div>
+
+<!-- ATS keyword strip (invisible to human readers, visible to parsers) -->
+<div class="ats-strip">
+  Appointment Setter · SDR · BDR · Sales Development Representative · Business Development Representative · B2B Sales · Lead Generation · Cold Email · LinkedIn Outreach · Outbound Sales · Pipeline Management · CRM · Prospecting · Revenue Growth · Client Acquisition · Tech Sales · IT Recruiting · Staffing Sales · Discovery Calls · Qualified Leads · Conversion Optimisation · Sales Automation · Email Sequences · Multi-channel Outreach · Go-to-Market · Remote Sales · SaaS Sales · Outbound Marketing · Account Executive Support · Freelance Sales · Upwork · Fiverr · International Sales · Digital Nomad · Worldwide Remote
+</div>
+
+</div><!-- /body -->
+</body>
+</html>
