@@ -88,8 +88,8 @@
     }
     nav.scrolled { background: rgba(4,4,10,0.92); }
     .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: 0.1em; }
-    .nav-logo span { color: var(--violet); }
+    .nav-logo { font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: 0.01em; }
+    .nav-logo span { color: var(--violet); font-weight: 700; }
     .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.07em; transition: color 200ms; }
     .nav-links a:hover { color: var(--text); }
@@ -104,7 +104,7 @@
 
     /* HERO */
     .hero { min-height: 100vh; display: flex; align-items: center; padding: 130px 0 80px; }
-    .hero-inner { display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: center; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center; }
 
     .live-badge {
       display: inline-flex; align-items: center; gap: 8px;
@@ -173,20 +173,51 @@
     .proof-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
     .proof-text strong { color: var(--text); display: block; }
 
-    /* TERMINAL CARD */
-    .hero-terminal {
-      background: var(--bg-3); border: 1px solid var(--border);
-      border-radius: var(--r-xl); overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
+    /* HERO PHOTO */
+    .hero-photo-wrap {
+      position: relative;
     }
-    .t-bar {
-      background: var(--bg-2); padding: 12px 18px;
-      display: flex; align-items: center; gap: 7px;
-      border-bottom: 1px solid var(--border);
+    .hero-photo-frame {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(124,58,237,0.25);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
     }
-    .t-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .t-dot:nth-child(1){background:#FF5F57} .t-dot:nth-child(2){background:#FFBD2E} .t-dot:nth-child(3){background:#28CA41}
-    .t-label { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-left: auto; letter-spacing: 0.06em; }
+    .hero-photo-frame::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 55%, rgba(4,4,10,0.85) 100%);
+      z-index: 1; pointer-events: none;
+    }
+    .hero-photo-frame img {
+      width: 100%; display: block;
+      aspect-ratio: 4/5; object-fit: cover; object-position: center top;
+    }
+    .hero-photo-card {
+      position: absolute; bottom: 20px; left: 20px; right: 20px; z-index: 2;
+      background: rgba(4,4,10,0.75); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .hpc-info { display: flex; flex-direction: column; gap: 3px; }
+    .hpc-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
+    .hpc-sub { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.05em; }
+    .hpc-avail {
+      display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+      font-family: var(--mono); font-size: 9px; color: var(--green);
+      background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+      padding: 5px 10px; border-radius: 20px; letter-spacing: 0.07em;
+    }
+    .hpc-avail::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: live 1.8s ease infinite; }
+    .hero-photo-glow {
+      position: absolute; inset: -2px; border-radius: 30px; z-index: -1;
+      background: linear-gradient(135deg, rgba(124,58,237,0.4) 0%, rgba(6,182,212,0.2) 50%, transparent 100%);
+      filter: blur(12px);
+    }
+
+    /* TERMINAL (kept for backwards compat, hidden on mobile) */
     .t-body { padding: 20px; font-family: var(--mono); font-size: 11.5px; line-height: 2; }
     .tp { color: var(--violet); } .tc { color: var(--text); } .to { color: var(--muted); }
     .tg { color: #28CA41; } .tval { color: var(--gold); } .tcy { color: var(--cyan); }
@@ -444,7 +475,7 @@
     /* RESPONSIVE */
     @media (max-width: 960px) {
       .hero-inner { grid-template-columns: 1fr; }
-      .hero-terminal { display: none; }
+      .hero-photo-wrap { display: none; }
       .bento-grid { grid-template-columns: 1fr; }
       .case-card-1,.case-card-2,.case-card-3,.case-card-4 { grid-column: 1 / -1; }
       .ba-grid { grid-template-columns: 1fr; }
@@ -455,6 +486,8 @@
       .svc-card.main { grid-column: 1; }
       .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
       .nav-links { display: none; }
+      .person-grid { grid-template-columns: 1fr; }
+      .person-photo { aspect-ratio: 4/3; max-width: 100%; }
     }
     @media (max-width: 600px) {
       .case-metrics { gap: 16px; }
@@ -473,11 +506,11 @@
   <!-- NAV -->
   <nav id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">AHSAN<span>.</span>BIZ</a>
+      <a href="#" class="nav-logo"><span>Moinul</span> Ahsan Moin</a>
       <ul class="nav-links">
         <li><a href="#cases">Case Studies</a></li>
+        <li><a href="#meet">About</a></li>
         <li><a href="#process">Process</a></li>
-        <li><a href="#who">Who</a></li>
         <li><a href="#pricing">Pricing</a></li>
       </ul>
       <a href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call" target="_blank" class="nav-cta">Book a Call →</a>
@@ -489,14 +522,14 @@
     <div class="wrap">
       <div class="hero-inner">
         <div>
-          <div class="live-badge">Taking new clients — Jun 2026</div>
+          <div class="live-badge">Available for new clients · Leeuwarden, NL</div>
           <h1 class="hero-title">
-            I Fill Your<br>
-            <span class="line-gold">Calendar.</span><br>
-            <span class="line-v">You Close.</span>
+            I Book Qualified<br>
+            <span class="line-gold">Client Calls</span><br>
+            <span class="line-v">for You.</span>
           </h1>
           <p class="hero-sub">
-            Done-for-you appointment setting for <strong>independent IT &amp; tech recruiting agency founders</strong>. Qualified 15-min strategy calls — booked, confirmed, ready for you to close.
+            Hi, I'm <strong>Moinul Ahsan Moin</strong>. I run done-for-you appointment setting for <strong>IT &amp; tech recruiting agency founders</strong> — LinkedIn + cold email, fully managed. You get qualified 15-min strategy calls in your calendar. You close.
           </p>
           <div class="hero-actions">
             <a href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call" target="_blank" class="btn-primary">
@@ -521,25 +554,23 @@
           </div>
         </div>
 
-        <div class="hero-terminal">
-          <div class="t-bar">
-            <div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div>
-            <span class="t-label">pipeline.live</span>
-          </div>
-          <div class="t-body">
-            <div><span class="tp">$ </span><span class="tc">ahsan status --live</span></div>
-            <div class="to">────────────────────</div>
-            <div><span class="to">leads       </span><span class="tval">34</span></div>
-            <div><span class="to">enriched    </span><span class="tval">12</span></div>
-            <div><span class="to">contacted   </span><span class="tval">5</span></div>
-            <div><span class="to">replied     </span><span class="tval">1 🔥</span></div>
-            <div><span class="to">pilots      </span><span class="tcy">active</span></div>
-            <div class="to">────────────────────</div>
-            <div><span class="tp">$ </span><span class="tc">ahsan enrich --run</span></div>
-            <div><span class="tg">✓ </span><span class="to">osint chain complete</span></div>
-            <div><span class="tg">✓ </span><span class="to">8 emails verified</span></div>
-            <div><span class="tg">✓ </span><span class="to">sequences queued</span></div>
-            <div><span class="tp">$ </span><span class="tcursor"></span></div>
+        <div class="hero-photo-wrap">
+          <div class="hero-photo-glow"></div>
+          <div class="hero-photo-frame">
+            <img
+              src="assets/moin-relaxed.jpg"
+              alt="Moinul Ahsan Moin — Appointment Setting Specialist"
+              width="420" height="525"
+              fetchpriority="high"
+              loading="eager"
+            >
+            <div class="hero-photo-card">
+              <div class="hpc-info">
+                <div class="hpc-name">Moinul Ahsan Moin</div>
+                <div class="hpc-sub">Appointment Setting · IT &amp; Tech Recruiting</div>
+              </div>
+              <div class="hpc-avail">Available</div>
+            </div>
           </div>
         </div>
       </div>
@@ -763,7 +794,7 @@
   </section>
 
   <!-- MEET MOINUL -->
-  <section class="person-section">
+  <section id="meet" class="person-section">
     <div class="wrap">
       <div class="reveal">
         <div class="section-tag">The Person Behind It</div>
@@ -772,7 +803,7 @@
       <div class="person-grid">
         <div class="person-photo-wrap reveal">
           <div class="person-photo-glow"></div>
-          <img src="assets/moin-relaxed.jpg" alt="Moinul Ahsan Moin" class="person-photo" width="420" height="560" loading="lazy">
+          <img src="assets/moin-focused.jpg" alt="Moinul Ahsan Moin — focused" class="person-photo" width="420" height="560" loading="lazy">
           <div class="person-photo-badge">
             <div>
               <div class="person-photo-badge-name">Moinul Ahsan Moin</div>
@@ -844,7 +875,7 @@
           <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Book the Free 15-Min Call
         </a>
-        <p class="cta-note">// cal.com/moinul-ahsan · no card required · 15 minutes only</p>
+        <p class="cta-note">Direct with Moinul Ahsan Moin · No card required · 15 minutes only</p>
       </div>
     </div>
   </section>
@@ -853,11 +884,14 @@
   <footer>
     <div class="wrap">
       <div class="footer-inner">
-        <div class="footer-logo">Moinul Ahsan Moin — Appointment Setting for Tech Recruiting Agencies · Leeuwarden, NL</div>
+        <div>
+          <div class="footer-logo">© 2026 Moinul Ahsan Moin</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:4px;letter-spacing:0.05em;">Appointment Setting · IT &amp; Tech Recruiting · Leeuwarden, NL</div>
+        </div>
         <div class="footer-links">
-          <a href="https://www.linkedin.com/in/moinul-ahsan-moin-b6402b3a2/" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/moinul-ahsan-moin-b6402b3a2/" target="_blank">LinkedIn ↗</a>
           <a href="mailto:ahsan.bookmorecalls@zohomail.com">Email</a>
-          <a href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call" target="_blank">Book a Call</a>
+          <a href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call" target="_blank">Book a Call →</a>
         </div>
       </div>
     </div>
