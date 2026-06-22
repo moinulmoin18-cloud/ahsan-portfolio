@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ahsan — Done-for-you appointment setting for IT & tech recruiting founders. Qualified 15-min strategy calls. Real results.">
-  <meta property="og:title" content="Ahsan — I Fill Your Calendar. You Close Deals.">
-  <meta property="og:description" content="Done-for-you appointment setting for independent IT recruiting agency founders. See real case studies.">
-  <title>Ahsan — Appointment Setting for IT Recruiting Founders</title>
+  <meta name="description" content="Moinul Ahsan Moin — Done-for-you appointment setting for tech recruiting agency founders. 5–8 qualified client calls per week. Real results.">
+  <meta property="og:title" content="Moinul Ahsan Moin — I Book Qualified Calls for Tech Recruiting Agencies">
+  <meta property="og:description" content="Done-for-you appointment setting for independent IT recruiting agency founders. Leeuwarden, Netherlands. See real case studies.">
+  <meta property="og:image" content="assets/moin-relaxed.jpg">
+  <title>Moinul Ahsan Moin — Appointment Setting for Tech Recruiting Agencies</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -388,6 +389,54 @@
     .footer-links a { font-family: var(--mono); font-size: 10px; color: var(--dim); text-decoration: none; letter-spacing: 0.06em; transition: color 200ms; }
     .footer-links a:hover { color: var(--muted); }
 
+    /* PERSON SECTION */
+    .person-section { background: var(--bg); border-top: 1px solid var(--border); }
+    .person-grid { display: grid; grid-template-columns: 420px 1fr; gap: 72px; align-items: center; margin-top: 56px; }
+    .person-photo-wrap { position: relative; }
+    .person-photo {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; object-position: center top;
+      border-radius: var(--r-xl);
+      border: 1px solid var(--border);
+      display: block;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .person-photo-badge {
+      position: absolute; bottom: 24px; left: 24px; right: 24px;
+      background: rgba(4,4,10,0.82); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: var(--r);
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .person-photo-badge-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text); }
+    .person-photo-badge-loc { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+    .person-photo-glow {
+      position: absolute; inset: -2px;
+      border-radius: calc(var(--r-xl) + 2px);
+      background: linear-gradient(135deg, rgba(124,58,237,0.3) 0%, rgba(6,182,212,0.15) 50%, transparent 100%);
+      z-index: -1;
+      filter: blur(8px);
+    }
+    .person-content { }
+    .person-quote {
+      font-family: var(--serif); font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: 400; font-style: italic; line-height: 1.45;
+      color: var(--text); margin-bottom: 28px;
+    }
+    .person-quote em { color: var(--gold); font-style: italic; }
+    .person-bio { font-size: 14.5px; color: var(--muted); line-height: 1.85; margin-bottom: 32px; }
+    .person-bio strong { color: var(--text); font-weight: 500; }
+    .person-stats { display: flex; gap: 36px; padding: 24px; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r-lg); margin-bottom: 28px; }
+    .p-stat { display: flex; flex-direction: column; gap: 3px; }
+    .p-stat-num { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--gold); }
+    .p-stat-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .person-li { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; transition: all 200ms; }
+    .person-li:hover { color: var(--cyan); border-color: rgba(6,182,212,0.3); }
+    @media (max-width: 960px) {
+      .person-grid { grid-template-columns: 1fr; }
+      .person-photo { aspect-ratio: 1/1; max-width: 360px; }
+    }
+
     /* REVEAL */
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 550ms ease, transform 550ms ease; }
     .reveal.visible { opacity: 1; transform: none; }
@@ -713,6 +762,44 @@
     </div>
   </section>
 
+  <!-- MEET MOINUL -->
+  <section class="person-section">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-tag">The Person Behind It</div>
+        <h2 class="section-title">Moinul Ahsan Moin.</h2>
+      </div>
+      <div class="person-grid">
+        <div class="person-photo-wrap reveal">
+          <div class="person-photo-glow"></div>
+          <img src="assets/moin-relaxed.jpg" alt="Moinul Ahsan Moin" class="person-photo" width="420" height="560" loading="lazy">
+          <div class="person-photo-badge">
+            <div>
+              <div class="person-photo-badge-name">Moinul Ahsan Moin</div>
+              <div class="person-photo-badge-loc">Leeuwarden, Netherlands</div>
+            </div>
+            <a href="https://www.linkedin.com/in/moinul-ahsan-moin-b6402b3a2/" target="_blank" style="font-family:var(--mono);font-size:9px;color:var(--cyan);text-decoration:none;letter-spacing:0.06em;">LinkedIn ↗</a>
+          </div>
+        </div>
+        <div class="person-content reveal">
+          <p class="person-quote">"Tech recruiting agencies come to me when their recruiters are <em>too busy delivering</em> to build their client pipeline."</p>
+          <p class="person-bio">I run the full outreach system — <strong>LinkedIn + cold email</strong> — and deliver qualified discovery calls directly onto your calendar. You close. I handle everything else.</p>
+          <p class="person-bio">I specialise in independent IT and tech recruiting agencies — <strong>1–5 people, US &amp; UK markets</strong> — in cybersecurity, DevSecOps, cloud, and compliance niches. My edge is that I learn your language before writing a single word of outreach.</p>
+          <div class="person-stats">
+            <div class="p-stat"><span class="p-stat-num">5–8</span><span class="p-stat-label">Calls / week</span></div>
+            <div class="p-stat"><span class="p-stat-num">30</span><span class="p-stat-label">Days to results</span></div>
+            <div class="p-stat"><span class="p-stat-num">83%</span><span class="p-stat-label">Show rate</span></div>
+            <div class="p-stat"><span class="p-stat-num">500+</span><span class="p-stat-label">Connections</span></div>
+          </div>
+          <a href="https://www.linkedin.com/in/moinul-ahsan-moin-b6402b3a2/" target="_blank" class="person-li">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            linkedin.com/in/moinul-ahsan-moin
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section id="pricing" style="background:var(--bg-2); border-top:1px solid var(--border)">
     <div class="wrap">
@@ -766,7 +853,7 @@
   <footer>
     <div class="wrap">
       <div class="footer-inner">
-        <div class="footer-logo">AHSAN.BIZ — Appointment Setting for IT Recruiting Founders</div>
+        <div class="footer-logo">Moinul Ahsan Moin — Appointment Setting for Tech Recruiting Agencies · Leeuwarden, NL</div>
         <div class="footer-links">
           <a href="https://www.linkedin.com/in/moinul-ahsan-moin-b6402b3a2/" target="_blank">LinkedIn</a>
           <a href="mailto:ahsan.bookmorecalls@zohomail.com">Email</a>
