@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://moinulahsanmoin.pages.dev/sitemap.xml
 Sitemap: https://moinulmoin18-cloud.github.io/sitemap.xml
