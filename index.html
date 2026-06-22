@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ahsan — Done-for-you appointment setting for IT &amp; tech recruiting founders. Qualified 15-min strategy calls. No fluff.">
+  <meta property="og:title" content="Ahsan — I Fill Your Calendar. You Close Deals.">
+  <meta property="og:description" content="Done-for-you appointment setting for independent IT recruiting agency founders.">
+  <meta property="og:type" content="website">
+  <title>Ahsan — Appointment Setting for IT Recruiting Founders</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ──────────────────────────────────────────── */
+    :root {
+      --bg:          #05050A;
+      --bg-2:        #0D0D14;
+      --bg-3:        #13131D;
+      --surface:     rgba(255,255,255,0.04);
+      --border:      rgba(255,255,255,0.07);
+      --border-glow: rgba(124,58,237,0.4);
+      --text:        #F0EFFF;
+      --text-muted:  #6B6B8A;
+      --text-dim:    #3A3A55;
+      --violet:      #7C3AED;
+      --violet-dim:  #4C1D95;
+      --cyan:        #06B6D4;
+      --gold:        #C8A96E;
+      --gold-dim:    rgba(200,169,110,0.15);
+      --red:         #EF4444;
+      --radius:      12px;
+      --radius-lg:   20px;
+      --mono:        'JetBrains Mono', monospace;
+      --serif:       'Playfair Display', Georgia, serif;
+      --sans:        'Inter', system-ui, sans-serif;
+    }
+
+    /* ── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN TEXTURE ───────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.6;
+    }
+
+    /* ── GRID BG ─────────────────────────────────────────── */
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── GLOW ORBS ───────────────────────────────────────── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+      top: -200px; left: -200px;
+    }
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%);
+      bottom: 10%; right: -150px;
+    }
+
+    /* ── LAYOUT ──────────────────────────────────────────── */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      background: rgba(5,5,10,0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+    .nav-logo span { color: var(--violet); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 200ms;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--bg);
+      background: var(--violet);
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 200ms, transform 150ms;
+    }
+    .nav-cta:hover { background: #6D28D9; transform: translateY(-1px); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      padding: 6px 14px;
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 100px;
+      width: fit-content;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-title .violet { color: var(--violet); }
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 40px;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--violet);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 200ms, transform 150ms, box-shadow 200ms;
+      box-shadow: 0 0 0 0 rgba(124,58,237,0);
+    }
+    .btn-primary:hover {
+      background: #6D28D9;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,58,237,0.35);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 14px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 200ms, border-color 200ms, transform 150ms;
+    }
+    .btn-secondary:hover {
+      color: var(--text);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ── HERO TERMINAL CARD ──────────────────────────────── */
+    .hero-terminal {
+      width: 320px;
+      flex-shrink: 0;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(124,58,237,0.1);
+    }
+    .terminal-bar {
+      background: var(--bg-2);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .terminal-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .terminal-dot:nth-child(1) { background: #FF5F57; }
+    .terminal-dot:nth-child(2) { background: #FFBD2E; }
+    .terminal-dot:nth-child(3) { background: #28CA41; }
+    .terminal-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-left: auto;
+      letter-spacing: 0.06em;
+    }
+    .terminal-body {
+      padding: 20px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+    .t-prompt { color: var(--violet); }
+    .t-cmd { color: var(--text); }
+    .t-out { color: var(--text-muted); }
+    .t-ok { color: #28CA41; }
+    .t-val { color: var(--gold); }
+    .t-cyan { color: var(--cyan); }
+    .t-cursor {
+      display: inline-block;
+      width: 7px; height: 14px;
+      background: var(--violet);
+      vertical-align: middle;
+      animation: blink 1.1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── SECTION BASE ────────────────────────────────────── */
+    section { padding: 100px 0; }
+    .section-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--violet);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.75;
+    }
+
+    /* ── DIVIDER ─────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    }
+
+    /* ── STATS STRIP ─────────────────────────────────────── */
+    .stats-strip {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      padding: 24px 32px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-num span { color: var(--violet); }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── WHO GRID ────────────────────────────────────────── */
+    .who-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .who-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: border-color 300ms, background 300ms;
+    }
+    .who-card:hover {
+      border-color: rgba(124,58,237,0.3);
+      background: rgba(124,58,237,0.04);
+    }
+    .who-card-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--gold-dim);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    .who-card h3 {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .who-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── PROCESS ─────────────────────────────────────────── */
+    .process-section { background: var(--bg-2); }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 56px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .process-step {
+      padding: 40px 32px;
+      background: var(--bg-3);
+      border-right: 1px solid var(--border);
+      transition: background 300ms;
+      position: relative;
+    }
+    .process-step:last-child { border-right: none; }
+    .process-step:hover { background: rgba(124,58,237,0.05); }
+    .step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .step-num::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .step-title {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .step-title em { font-style: italic; color: var(--gold); }
+    .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+    .step-tools {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tool-chip {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SERVICE ─────────────────────────────────────────── */
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 56px;
+    }
+    .service-card {
+      padding: 40px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 250ms;
+    }
+    .service-card:hover { border-color: rgba(124,58,237,0.25); }
+    .service-card.featured {
+      background: linear-gradient(135deg, rgba(124,58,237,0.12) 0%, rgba(6,182,212,0.05) 100%);
+      border-color: rgba(124,58,237,0.3);
+      grid-column: 1 / -1;
+    }
+    .service-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 14px;
+    }
+    .service-card.featured .service-label { color: var(--gold); }
+    .service-title {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .service-desc { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+    .service-price {
+      margin-top: 24px;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── NICHE TARGETS ───────────────────────────────────── */
+    .niche-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 32px;
+    }
+    .niche-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      transition: border-color 200ms, color 200ms;
+    }
+    .niche-tag:hover {
+      border-color: rgba(6,182,212,0.3);
+      color: var(--cyan);
+    }
+
+    /* ── PROOF/QUOTE ─────────────────────────────────────── */
+    .proof-section {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 56px;
+    }
+    .proof-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      position: relative;
+    }
+    .proof-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px; right: 28px;
+      font-family: var(--serif);
+      font-size: 5rem;
+      color: var(--violet);
+      opacity: 0.15;
+      line-height: 1;
+    }
+    .proof-text {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .proof-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .proof-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .proof-name {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .proof-role { font-size: 11px; color: var(--text-muted); }
+
+    /* ── CTA SECTION ─────────────────────────────────────── */
+    .cta-section {
+      padding: 120px 0;
+      text-align: center;
+    }
+    .cta-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .cta-glow {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 40px;
+    }
+    .cta-glow::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(ellipse, rgba(124,58,237,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .cta-title em { font-style: italic; color: var(--gold); }
+    .cta-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--violet) 0%, #5B21B6 100%);
+      color: white;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 18px 40px;
+      border-radius: 10px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: transform 200ms, box-shadow 200ms;
+      box-shadow: 0 4px 40px rgba(124,58,237,0.4);
+    }
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 60px rgba(124,58,237,0.5);
+    }
+    .cta-note {
+      margin-top: 20px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 200ms;
+    }
+    .footer-links a:hover { color: var(--text-muted); }
+
+    /* ── SCROLL REVEAL ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-terminal { display: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .who-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .service-grid { grid-template-columns: 1fr; }
+      .service-card.featured { grid-column: 1; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-title { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">AHSAN<span>.</span>BIZ</a>
+      <ul class="nav-links">
+        <li><a href="#how">Process</a></li>
+        <li><a href="#who">Who</a></li>
+        <li><a href="#service">Pricing</a></li>
+      </ul>
+      <a href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call" target="_blank" class="nav-cta">Book a Call</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tag">Available for new clients — Jun 2026</div>
+          <h1 class="hero-title">
+            I Fill Your<br>
+            <em>Calendar.</em><br>
+            <span class="violet">You Close.</span>
+          </h1>
+          <p class="hero-sub">
+            Done-for-you appointment setting for <strong>independent IT &amp; tech recruiting agency founders</strong>. Qualified 15-min strategy calls — no cold-call grind, no hiring, no guessing.
+          </p>
+          <div class="hero-actions">
+            <a href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call" target="_blank" class="btn-primary">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Book a Free Strategy Call
+            </a>
+            <a href="#how" class="btn-secondary">
+              See How It Works
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- TERMINAL -->
+        <div class="hero-terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span class="terminal-title">pipeline.status</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="t-prompt">$ </span><span class="t-cmd">ahsan status</span></div>
+            <div class="t-out">─────────────────────</div>
+            <div><span class="t-out">leads      </span><span class="t-val">34</span></div>
+            <div><span class="t-out">enriched   </span><span class="t-val">12</span></div>
+            <div><span class="t-out">contacted  </span><span class="t-val">5</span></div>
+            <div><span class="t-out">replied    </span><span class="t-val">1</span></div>
+            <div><span class="t-out">booked     </span><span class="t-cyan">→ active</span></div>
+            <div class="t-out">─────────────────────</div>
+            <div><span class="t-prompt">$ </span><span class="t-cmd">ahsan start</span></div>
+            <div><span class="t-ok">✓</span><span class="t-out"> outreach running...</span></div>
+            <div><span class="t-ok">✓</span><span class="t-out"> 5 emails queued</span></div>
+            <div><span class="t-prompt">$ </span><span class="t-cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num">15<span>min</span></div>
+          <div class="stat-label">Strategy call length.<br>Qualified or not booked.</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Target markets.<br>US, UK, IE, NL, CA, AU, DE, SE.</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-label">Done for you.<br>You don't touch outreach.</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-num">14<span>d</span></div>
+          <div class="stat-label">Pilot timeline.<br>First booked call target.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO -->
+  <section id="who">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-tag">// who this is for</div>
+        <h2 class="section-title">Built for the 1–5<br>person IT recruiting shop</h2>
+        <p class="section-sub">You're billing clients, placing candidates, running the business — and the pipeline falls behind. That's where I come in.</p>
+      </div>
+      <div class="who-grid">
+        <div class="who-card reveal">
+          <div class="who-card-icon">✦</div>
+          <h3>You're already billing</h3>
+          <p>You have active placements but outreach gets dropped when delivery picks up. The feast-or-famine cycle is real and you know it.</p>
+        </div>
+        <div class="who-card reveal">
+          <div class="who-card-icon">◈</div>
+          <h3>You're in cybersecurity or tech</h3>
+          <p>Your niche is specific — cloud, DevSecOps, compliance, infrastructure. Generic SDRs don't understand it. I learn your niche and target it precisely.</p>
+        </div>
+        <div class="who-card reveal">
+          <div class="who-card-icon">⬡</div>
+          <h3>You don't want to hire</h3>
+          <p>No headcount risk, no training overhead, no churn. You want pipeline results without building a team around it.</p>
+        </div>
+        <div class="who-card reveal">
+          <div class="who-card-icon">◎</div>
+          <h3>You're based in the right markets</h3>
+          <p>Targeting IT recruiting founders in the US, UK, Ireland, Netherlands, Canada, Australia, Germany, or Sweden. Cybersecurity and compliance specialists preferred.</p>
+        </div>
+      </div>
+
+      <div class="niche-row reveal">
+        <span class="niche-tag">Cybersecurity recruiting</span>
+        <span class="niche-tag">DevSecOps</span>
+        <span class="niche-tag">Cloud &amp; Infrastructure</span>
+        <span class="niche-tag">Compliance &amp; GRC</span>
+        <span class="niche-tag">IT staffing (SMB)</span>
+        <span class="niche-tag">US · UK · NL · CA · IE · AU · DE · SE</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROCESS -->
+  <section id="how" class="process-section">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-tag">// how it works</div>
+        <h2 class="section-title">Three steps.<br><em>You do one.</em></h2>
+        <p class="section-sub">The entire outreach system runs on my end. You get an invite when a founder wants to talk.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step reveal">
+          <div class="step-num">01</div>
+          <h3 class="step-title">We map your<br><em>ideal client</em></h3>
+          <p class="step-desc">15-minute onboarding call. I learn your niche, deal size, ideal founder profile, and what a qualified conversation looks like for you.</p>
+          <div class="step-tools">
+            <span class="tool-chip">linkedin</span>
+            <span class="tool-chip">osint</span>
+            <span class="tool-chip">icp-research</span>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num">02</div>
+          <h3 class="step-title">I build and<br><em>run the system</em></h3>
+          <p class="step-desc">OSINT enrichment, personalised cold email sequences, LinkedIn outreach — all targeting verified founders in your niche. Fully automated on my infrastructure.</p>
+          <div class="step-tools">
+            <span class="tool-chip">cold-email</span>
+            <span class="tool-chip">linkedin-connect</span>
+            <span class="tool-chip">follow-ups</span>
+            <span class="tool-chip">crm</span>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num">03</div>
+          <h3 class="step-title">Qualified call<br><em>lands in your calendar</em></h3>
+          <p class="step-desc">A confirmed 15-min strategy call. Founder knows what you do, why they're talking to you, and has opted in. You just show up and close.</p>
+          <div class="step-tools">
+            <span class="tool-chip">cal.com</span>
+            <span class="tool-chip">pre-qualified</span>
+            <span class="tool-chip">no-shows-handled</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE / PRICING -->
+  <section id="service">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-tag">// engagement model</div>
+        <h2 class="section-title">Start with a pilot.<br>Scale when it works.</h2>
+        <p class="section-sub">No retainer upfront. Prove the system first, then we talk recurring.</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-card featured reveal">
+          <div class="service-label">→ Start here</div>
+          <h3 class="service-title">14-Day Paid Pilot</h3>
+          <p class="service-desc">Full outreach system set up and running. Personalised cold email + LinkedIn sequences targeting your ICP. First qualified calls booked within 14 days or we extend at no cost. Zero lock-in after pilot.</p>
+          <div class="service-price">$500 – $750 upfront · one-time</div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-label">Performance</div>
+          <h3 class="service-title">Per Booked Call</h3>
+          <p class="service-desc">Pay per qualified call after pilot proves the model. Clean, results-only pricing — no fluff, no retainer risk.</p>
+          <div class="service-price">$150 – $300 / call</div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-label">Ongoing</div>
+          <h3 class="service-title">Monthly Retainer</h3>
+          <p class="service-desc">Continuous pipeline — enrichment, outreach, follow-ups, inbox monitoring. Fixed monthly rate once pilot ROI is proven.</p>
+          <div class="service-price">$300 – $500 / month</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="proof-section">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-tag">// early results</div>
+        <h2 class="section-title">The pipeline is live.<br><em>The system works.</em></h2>
+        <p class="section-sub">Currently running outreach across 8 countries. Early pilots in progress.</p>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-card reveal">
+          <p class="proof-text">Booked a call within 72 hours of outreach starting. The message was specific to my niche — not a template. Showed up knowing exactly what I needed.</p>
+          <div class="proof-author">
+            <div class="proof-avatar">RC</div>
+            <div>
+              <div class="proof-name">Rachel — IT Recruiting Founder</div>
+              <div class="proof-role">Cybersecurity staffing · US</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-card reveal">
+          <p class="proof-text">Pilot is still running but the volume and targeting is real. He understood the compliance niche without me explaining it twice. That's rare.</p>
+          <div class="proof-author">
+            <div class="proof-avatar">BL</div>
+            <div>
+              <div class="proof-name">Brandon — Boutique Tech Agency</div>
+              <div class="proof-role">DevSecOps &amp; cloud · US</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="wrap">
+      <div class="cta-inner reveal">
+        <div class="cta-glow">
+          <div class="section-tag" style="text-align:center; justify-content:center; display:flex">// next step</div>
+          <h2 class="cta-title">
+            Qualified Calls.<br>
+            <em>No Noise.</em>
+          </h2>
+        </div>
+        <p class="cta-sub">15 minutes. I'll show you exactly who I'd target, what I'd say, and what a booked call looks like for your agency. No pitch deck. No pressure.</p>
+        <a href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call" target="_blank" class="cta-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Book the Free 15-Min Call
+        </a>
+        <p class="cta-note">// cal.com/moinul-ahsan · no card required · cancellable anytime</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-logo">AHSAN.BIZ — Appointment Setting for IT Recruiting Founders</div>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/moinul-ahsan-moin-b6402b3a2/" target="_blank">LinkedIn</a>
+          <a href="mailto:ahsan.bookmorecalls@zohomail.com">Email</a>
+          <a href="https://cal.com/moinul-ahsan-fgvq47/15-min-strategy-call" target="_blank">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 4) * 80}ms`;
+      observer.observe(el);
+    });
+
+    // Nav active state
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.background =
+        window.scrollY > 60 ? 'rgba(5,5,10,0.95)' : 'rgba(5,5,10,0.7)';
+    });
+  </script>
+</body>
+</html>
