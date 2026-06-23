@@ -283,39 +283,106 @@
     /* Badge hidden initially for typewriter */
     #live-badge { opacity: 0; }
 
-    /* Title words — scramble animation base */
-    .title-word { display: inline; }
+    /* ── 3D AGGRESSIVE TITLE ── */
 
-    /* Hero entrance — everything starts invisible */
-    .hero-anim-init .hero-terminal-line,
-    .hero-anim-init #live-badge,
-    .hero-anim-init #hero-title,
-    .hero-anim-init .hero-sub,
-    .hero-anim-init .hero-actions,
-    .hero-anim-init .hero-proof { opacity: 0; }
+    /* Perspective context on the title block */
+    .hero-title {
+      perspective: 550px;
+      perspective-origin: 45% 55%;
+      transform-style: preserve-3d;
+    }
+
+    /* Each title word — inline-block so transforms work */
+    .title-word {
+      display: inline-block;
+      transform-origin: center 60%;
+      /* Deep violet extrusion — 7 layers, 45° down-right */
+      text-shadow:
+        1px 1px 0 rgba(100,35,200,0.95),
+        2px 2px 0 rgba(78,24,158,0.9),
+        3px 3px 0 rgba(56,16,118,0.85),
+        4px 4px 0 rgba(36,9,78,0.8),
+        5px 5px 0 rgba(20,4,44,0.75),
+        6px 6px 0 rgba(8,1,18,0.7),
+        8px 8px 22px rgba(0,0,0,0.98);
+      animation: float-w1 5.2s ease-in-out infinite;
+    }
+
+    /* "Client Calls" — gold, most aggressive, skews forward */
+    .line-gold.title-word {
+      text-shadow:
+        1px 1px 0 rgba(165,95,3,0.98),
+        2px 2px 0 rgba(125,68,2,0.92),
+        3px 3px 0 rgba(88,44,1,0.86),
+        4px 4px 0 rgba(55,24,0,0.8),
+        5px 5px 0 rgba(28,10,0,0.75),
+        6px 6px 0 rgba(10,3,0,0.7),
+        8px 8px 20px rgba(0,0,0,0.98);
+      animation: float-w2 3.6s ease-in-out infinite;
+    }
+
+    /* "for You." — violet-cyan gradient, punches most forward */
+    .line-v.title-word {
+      text-shadow:
+        1px 1px 0 rgba(80,18,168,0.9),
+        2px 2px 0 rgba(55,12,125,0.85),
+        3px 3px 0 rgba(4,140,165,0.65),
+        4px 4px 0 rgba(2,90,110,0.7),
+        5px 5px 0 rgba(1,40,55,0.75),
+        7px 7px 20px rgba(0,0,0,0.98),
+        0px 0px 40px rgba(6,182,212,0.12);
+      animation: float-w3 4.4s ease-in-out infinite;
+    }
+
+    /* Float keyframes — different phase, timing, angle per line */
+    @keyframes float-w1 {
+      0%, 100% { transform: rotateX(3deg) rotateY(-2deg) translateZ(0px); }
+      38%      { transform: rotateX(-2deg) rotateY(3.5deg) translateZ(8px); }
+      72%      { transform: rotateX(2.5deg) rotateY(0.5deg) translateZ(3px); }
+    }
+    @keyframes float-w2 {
+      0%   { transform: rotateX(-5deg) rotateY(3deg) skewX(-1.8deg) translateZ(4px); }
+      28%  { transform: rotateX(3deg) rotateY(-4.5deg) skewX(1.2deg) translateZ(14px) scale(1.012); }
+      58%  { transform: rotateX(-2deg) rotateY(5deg) skewX(-0.8deg) translateZ(8px); }
+      100% { transform: rotateX(-5deg) rotateY(3deg) skewX(-1.8deg) translateZ(4px); }
+    }
+    @keyframes float-w3 {
+      0%, 100% { transform: rotateX(7deg) translateZ(12px) scale(1.012); }
+      42%      { transform: rotateX(-4deg) translateZ(22px) scale(1.028) rotateY(-2deg); }
+      74%      { transform: rotateX(3deg) translateZ(16px) rotateY(1.5deg); }
+    }
+
+    /* Hover — pause float, title tips forward */
+    .hero-title:hover .title-word {
+      animation-play-state: paused;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
 
     /* Reveal animation */
     @keyframes retro-reveal {
-      0%   { opacity: 0; transform: translateY(12px); filter: blur(2px); }
-      40%  { opacity: 1; filter: blur(0); }
-      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-    }
-    @keyframes retro-fade {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+      0%   { opacity: 0; transform: translateY(14px) rotateX(8deg); filter: blur(3px); }
+      45%  { opacity: 1; filter: blur(0); }
+      100% { opacity: 1; transform: translateY(0) rotateX(0); filter: blur(0); }
     }
 
-    /* Glitch effect on title */
+    /* Glitch — more violent: RGB split + skew + brightness burst */
     @keyframes glitch-shift {
-      0%   { text-shadow: none; transform: translate(0,0); }
-      15%  { text-shadow: -2px 0 rgba(6,182,212,0.7), 2px 0 rgba(124,58,237,0.7); transform: translate(-1px, 0); }
-      30%  { text-shadow: 2px 0 rgba(212,168,67,0.6), -2px 0 rgba(6,182,212,0.5); transform: translate(1px, 0); }
-      45%  { text-shadow: -1px 0 rgba(124,58,237,0.8); transform: translate(0, -1px); }
-      60%  { text-shadow: 1px 0 rgba(6,182,212,0.5); transform: translate(1px, 1px); }
-      100% { text-shadow: none; transform: translate(0,0); }
+      0%   { transform: translate(0,0) skewX(0); filter: none; }
+      8%   { transform: translate(-3px, 0) skewX(-2deg); filter: brightness(1.4) hue-rotate(-20deg);
+             text-shadow: -4px 0 rgba(6,182,212,0.85), 4px 0 rgba(212,168,67,0.6); }
+      18%  { transform: translate(3px, -1px) skewX(1.5deg); filter: brightness(1.2);
+             text-shadow: 4px 0 rgba(124,58,237,0.8), -3px 1px rgba(6,182,212,0.5); }
+      28%  { transform: translate(-1px, 2px) scaleX(1.01); filter: brightness(1.6);
+             text-shadow: -2px 0 rgba(6,182,212,0.7), 2px 0 rgba(212,168,67,0.5); }
+      42%  { transform: translate(2px, 0) skewX(-1deg); filter: none; }
+      58%  { transform: translate(-1px, 1px) scaleX(0.99); filter: brightness(1.15); }
+      75%  { transform: translate(1px, 0) skewX(0.5deg); filter: none; }
+      88%  { transform: translate(0, -1px); filter: brightness(1.1);
+             text-shadow: 1px 0 rgba(124,58,237,0.3); }
+      100% { transform: translate(0,0) skewX(0); filter: none; }
     }
     .hero-title.glitching {
-      animation: glitch-shift 0.22s steps(2) forwards;
+      animation: glitch-shift 0.28s steps(3, end) forwards;
     }
 
     /* Photo frame CRT feel */
@@ -1273,7 +1340,8 @@
           const resolved = Math.floor((f / frames) * target.length);
           let out = '';
           for (let i = 0; i < target.length; i++) {
-            out += i < resolved || target[i] === ' ' ? target[i] : CHARS[rand(CHARS.length)];
+            const keep = i < resolved || target[i] === ' ' || /[.,!?;:·'"]/.test(target[i]);
+          out += keep ? target[i] : CHARS[rand(CHARS.length)];
           }
           tn.textContent = out;
           await delay(28);
