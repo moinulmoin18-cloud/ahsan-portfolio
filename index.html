@@ -765,6 +765,106 @@
       .wrap { padding: 0 20px; }
       .guarantee-banner { flex-direction: column; text-align: center; }
     }
+
+    /* ═══════════════════════════════════════════════════════
+       FUTURISTIC AGGRESSIVE 2D ANIMATIONS
+    ═══════════════════════════════════════════════════════ */
+
+    /* Section tag — brightness flash + letter-spacing collapse */
+    @keyframes tag-flash {
+      0%   { opacity: 0; filter: brightness(3) blur(2px) saturate(0); letter-spacing: 0.32em; }
+      30%  { opacity: 1; filter: brightness(2) saturate(1.5); }
+      100% { opacity: 1; filter: brightness(1) saturate(1); letter-spacing: 0.18em; }
+    }
+
+    /* Process number — energy charge burst */
+    @keyframes pnum-charge {
+      0%   { opacity: 0; transform: scale(0.6); color: transparent; filter: blur(6px);
+             text-shadow: none; }
+      32%  { opacity: 1; transform: scale(1.12); color: #fff; filter: blur(0);
+             text-shadow: 0 0 28px rgba(124,58,237,1), 0 0 56px rgba(6,182,212,0.6); }
+      62%  { transform: scale(1.02);
+             text-shadow: 0 0 12px rgba(124,58,237,0.55); }
+      100% { opacity: 1; transform: scale(1); color: var(--violet-2);
+             text-shadow: 0 0 6px rgba(124,58,237,0.22); }
+    }
+
+    /* Stat number — scanner charge */
+    @keyframes stat-charge {
+      0%   { opacity: 0; transform: scale(0.8); filter: brightness(0.1) saturate(0); }
+      28%  { opacity: 1; transform: scale(1.1); filter: brightness(2.8) saturate(3) drop-shadow(0 0 18px var(--violet)); }
+      62%  { transform: scale(1.02); filter: brightness(1.4) saturate(1.5); }
+      100% { transform: scale(1); filter: none; }
+    }
+
+    /* Before/after list items — slide from sides */
+    @keyframes ba-left  { from { opacity: 0; transform: translateX(-26px); } to { opacity: 1; transform: none; } }
+    @keyframes ba-right { from { opacity: 0; transform: translateX(26px);  } to { opacity: 1; transform: none; } }
+
+    /* Niche tags — bounce in */
+    @keyframes ntag-in {
+      0%   { opacity: 0; transform: translateY(14px) scale(0.82); filter: blur(4px); }
+      60%  { filter: blur(0); }
+      100% { opacity: 1; transform: none; }
+    }
+
+    /* CTA continuous glow pulse */
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 4px 40px rgba(124,58,237,0.45); }
+      50%       { box-shadow: 0 4px 70px rgba(124,58,237,0.85), 0 0 0 3px rgba(124,58,237,0.15); }
+    }
+
+    /* Section tag state */
+    .section-tag { opacity: 0; }
+    .section-tag.active { animation: tag-flash 0.65s cubic-bezier(0.16,1,0.3,1) both; }
+
+    /* Process numbers */
+    .p-num { opacity: 0; }
+    .p-num.active { animation: pnum-charge 0.82s cubic-bezier(0.16,1,0.3,1) both; }
+
+    /* Pain stats */
+    .pain-num { opacity: 0; }
+    .pain-num.active { animation: stat-charge 0.88s cubic-bezier(0.16,1,0.3,1) both; }
+
+    /* Before/after items */
+    .ba-before .ba-item { opacity: 0; }
+    .ba-after  .ba-item { opacity: 0; }
+    .ba-before .ba-item.active { animation: ba-left  0.5s cubic-bezier(0.16,1,0.3,1) both; }
+    .ba-after  .ba-item.active { animation: ba-right 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+
+    /* Niche tags */
+    .ntag { opacity: 0; display: inline-block; }
+    .ntag.active { animation: ntag-in 0.58s cubic-bezier(0.16,1,0.3,1) both; }
+
+    /* CTA button */
+    .cta-btn { animation: glow-pulse 2.8s ease-in-out infinite; }
+
+    /* Enhanced card hover glows */
+    .case-card     { transition: border-color 300ms, transform 300ms, box-shadow 300ms; }
+    .case-card:hover {
+      box-shadow: 0 14px 60px rgba(124,58,237,0.3), 0 0 0 1px rgba(124,58,237,0.22),
+                  inset 0 0 28px rgba(124,58,237,0.05);
+    }
+    .who-card      { transition: border-color 250ms, background 250ms, box-shadow 250ms; }
+    .who-card:hover {
+      box-shadow: 0 8px 40px rgba(124,58,237,0.24), 0 0 0 1px rgba(124,58,237,0.16);
+    }
+    .pricing-card  { transition: transform 300ms, box-shadow 300ms, border-color 300ms; }
+    .pricing-card:hover {
+      box-shadow: 0 12px 50px rgba(124,58,237,0.26), 0 0 0 1px rgba(124,58,237,0.16);
+    }
+
+    /* Neon sweep on case card top border — more aggressive on hover */
+    .case-card:hover::before {
+      opacity: 1;
+      background: linear-gradient(90deg, transparent, rgba(124,58,237,0.9), rgba(6,182,212,0.6), transparent);
+      animation: border-sweep 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes border-sweep {
+      from { background-position: -100% 0; }
+      to   { background-position: 200% 0; }
+    }
+
   </style>
 </head>
 <body>
@@ -1411,6 +1511,56 @@
       }
 
       boot().then(() => setTimeout(glitchLoop, 3000));
+    })();
+
+    /* ── FUTURISTIC ANIMATION SYSTEM ── */
+    (function () {
+      function observe(selector, cls, delayFn, opts) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach((e, idx) => {
+            if (!e.isIntersecting) return;
+            const el = e.target;
+            if (delayFn) el.style.animationDelay = delayFn(idx) + 'ms';
+            el.classList.add(cls);
+            io.unobserve(el);
+          });
+        }, opts || { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
+        document.querySelectorAll(selector).forEach(el => io.observe(el));
+      }
+
+      // Section tags
+      observe('.section-tag', 'active', null, { threshold: 0.1 });
+
+      // Niche tags stagger
+      observe('.ntag', 'active', i => i * 55, { threshold: 0.1 });
+
+      // Before/after items stagger
+      observe('.ba-before .ba-item', 'active', i => i * 72, { threshold: 0.08 });
+      observe('.ba-after .ba-item',  'active', i => i * 72, { threshold: 0.08 });
+
+      // Process number charge — trigger when p-step is 35% visible
+      document.querySelectorAll('.p-step').forEach((step, i) => {
+        const num = step.querySelector('.p-num');
+        if (!num) return;
+        const io = new IntersectionObserver(([e]) => {
+          if (!e.isIntersecting) return;
+          setTimeout(() => num.classList.add('active'), i * 190);
+          io.disconnect();
+        }, { threshold: 0.35 });
+        io.observe(step);
+      });
+
+      // Stat charge — trigger when pain-stat is 40% visible
+      document.querySelectorAll('.pain-stat').forEach((stat, i) => {
+        const num = stat.querySelector('.pain-num');
+        if (!num) return;
+        const io = new IntersectionObserver(([e]) => {
+          if (!e.isIntersecting) return;
+          setTimeout(() => num.classList.add('active'), i * 140);
+          io.disconnect();
+        }, { threshold: 0.4 });
+        io.observe(stat);
+      });
     })();
   </script>
 </body>
