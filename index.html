@@ -250,6 +250,88 @@
       filter: blur(12px);
     }
 
+    /* ── RETRO HERO ANIMATIONS ── */
+
+    /* CRT scanline overlay on hero */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.03) 3px,
+        rgba(0,0,0,0.03) 4px
+      );
+    }
+    .hero { position: relative; }
+
+    /* Terminal prompt line above badge */
+    .hero-terminal-line {
+      font-family: var(--mono); font-size: 11px; color: var(--green);
+      letter-spacing: 0.08em; margin-bottom: 18px; min-height: 18px;
+      opacity: 0;
+    }
+    .hero-terminal-line .t-cursor {
+      display: inline-block; width: 7px; height: 13px;
+      background: var(--green); margin-left: 2px;
+      animation: blink-cur 0.9s step-end infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink-cur { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Badge hidden initially for typewriter */
+    #live-badge { opacity: 0; }
+
+    /* Title words — scramble animation base */
+    .title-word { display: inline; }
+
+    /* Hero entrance — everything starts invisible */
+    .hero-anim-init .hero-terminal-line,
+    .hero-anim-init #live-badge,
+    .hero-anim-init #hero-title,
+    .hero-anim-init .hero-sub,
+    .hero-anim-init .hero-actions,
+    .hero-anim-init .hero-proof { opacity: 0; }
+
+    /* Reveal animation */
+    @keyframes retro-reveal {
+      0%   { opacity: 0; transform: translateY(12px); filter: blur(2px); }
+      40%  { opacity: 1; filter: blur(0); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @keyframes retro-fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Glitch effect on title */
+    @keyframes glitch-shift {
+      0%   { text-shadow: none; transform: translate(0,0); }
+      15%  { text-shadow: -2px 0 rgba(6,182,212,0.7), 2px 0 rgba(124,58,237,0.7); transform: translate(-1px, 0); }
+      30%  { text-shadow: 2px 0 rgba(212,168,67,0.6), -2px 0 rgba(6,182,212,0.5); transform: translate(1px, 0); }
+      45%  { text-shadow: -1px 0 rgba(124,58,237,0.8); transform: translate(0, -1px); }
+      60%  { text-shadow: 1px 0 rgba(6,182,212,0.5); transform: translate(1px, 1px); }
+      100% { text-shadow: none; transform: translate(0,0); }
+    }
+    .hero-title.glitching {
+      animation: glitch-shift 0.22s steps(2) forwards;
+    }
+
+    /* Photo frame CRT feel */
+    .hero-photo-frame::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom, transparent 0px, transparent 3px,
+        rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px
+      );
+      border-radius: inherit;
+    }
+
+    /* Photo entrance */
+    .hero-photo-wrap { opacity: 0; transform: translateX(20px); }
+
     /* TICKER */
     .ticker-wrap { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 0; background: var(--bg-2); }
     .ticker-track { display: flex; gap: 0; animation: ticker 28s linear infinite; white-space: nowrap; width: max-content; }
@@ -647,11 +729,12 @@
     <div class="wrap">
       <div class="hero-inner">
         <div>
-          <div class="live-badge">Available Worldwide · Remote · Digital Nomad</div>
-          <h1 class="hero-title">
-            I Book Qualified<br>
-            <span class="line-gold">Client Calls</span><br>
-            <span class="line-v">for You.</span>
+          <div class="hero-terminal-line" id="hero-term" aria-hidden="true"></div>
+          <div class="live-badge" id="live-badge" data-text="Available Worldwide · Remote · Digital Nomad"></div>
+          <h1 class="hero-title" id="hero-title">
+            <span class="title-word" data-word="I Book Qualified">I Book Qualified</span><br>
+            <span class="line-gold title-word" data-word="Client Calls">Client Calls</span><br>
+            <span class="line-v title-word" data-word="for You.">for You.</span>
           </h1>
           <p class="hero-sub">
             Hi, I'm <strong>Moinul Ahsan Moin</strong>. I run done-for-you appointment setting for <strong>IT &amp; tech recruiting agency founders</strong> — LinkedIn + cold email, fully managed. Qualified 15-min strategy calls land in your calendar. You close.
@@ -1150,6 +1233,120 @@
       if (e.isIntersecting) { animateCounter(e.target); cr.unobserve(e.target); }
     }), { threshold: 0.5 });
     document.querySelectorAll('[data-target]').forEach(el => cr.observe(el));
+
+    /* ── RETRO HERO SEQUENCE ── */
+    (function() {
+      const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/\\|~';
+      const rand  = n => Math.floor(Math.random() * n);
+      const delay = (ms) => new Promise(r => setTimeout(r, ms));
+
+      const termEl     = document.getElementById('hero-term');
+      const badgeEl   = document.getElementById('live-badge');
+      const titleEl   = document.getElementById('hero-title');
+      const subEl     = document.querySelector('.hero-sub');
+      const actEl     = document.querySelector('.hero-actions');
+      const proofEl   = document.querySelector('.hero-proof');
+      const photoEl   = document.querySelector('.hero-photo-wrap');
+      const titleWords = [...document.querySelectorAll('.title-word')];
+
+      // ── Typewriter into a plain element (no extra dot)
+      async function typeInto(el, text, speed) {
+        el.style.opacity = '1';
+        const cur = document.createElement('span');
+        cur.className = 't-cursor';
+        el.appendChild(cur);
+        for (let i = 0; i < text.length; i++) {
+          el.insertBefore(document.createTextNode(text[i]), cur);
+          await delay(speed + rand(Math.round(speed * 0.5)));
+        }
+        cur.remove();
+      }
+
+      // ── Text scramble for a text-only span
+      async function scrambleSpan(span, target, dur) {
+        const frames = Math.ceil(dur / 28);
+        span.style.opacity = '1';
+        // Grab or create text node (keep any child spans for styling)
+        let tn = [...span.childNodes].find(n => n.nodeType === 3);
+        if (!tn) { tn = document.createTextNode(''); span.prepend(tn); }
+        for (let f = 0; f <= frames; f++) {
+          const resolved = Math.floor((f / frames) * target.length);
+          let out = '';
+          for (let i = 0; i < target.length; i++) {
+            out += i < resolved || target[i] === ' ' ? target[i] : CHARS[rand(CHARS.length)];
+          }
+          tn.textContent = out;
+          await delay(28);
+        }
+        tn.textContent = target;
+      }
+
+      // ── Reveal an element
+      function revealEl(el) {
+        el.style.animation = 'retro-reveal 0.55s cubic-bezier(0.22,1,0.36,1) forwards';
+      }
+
+      // ── Main async sequence
+      async function boot() {
+        await delay(150);
+
+        // 1 — Terminal boot lines
+        const bootLines = ['> init portfolio.js', '> loading modules…', '> ready.'];
+        for (let i = 0; i < bootLines.length; i++) {
+          await typeInto(termEl, bootLines[i], 22);
+          if (i < bootLines.length - 1) {
+            await delay(180);
+            termEl.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = ''; });
+            // clear text nodes only
+            [...termEl.childNodes].filter(n => n.nodeType === 3).forEach(n => n.remove());
+          }
+        }
+        await delay(320);
+
+        // Fade terminal line out
+        termEl.style.transition = 'opacity 0.35s';
+        termEl.style.opacity = '0';
+        await delay(350);
+
+        // 2 — Badge typewriter (CSS ::before dot already handles the pulse dot)
+        const badgeText = badgeEl.dataset.text || 'Available Worldwide · Remote · Digital Nomad';
+        await typeInto(badgeEl, badgeText, 18);
+        await delay(140);
+
+        // 3 — Title scramble (all 3 lines in parallel, staggered)
+        titleEl.style.opacity = '1';
+        const words = ['I Book Qualified', 'Client Calls', 'for You.'];
+        const proms = titleWords.map((span, i) =>
+          delay(i * 100).then(() => scrambleSpan(span, words[i], 340))
+        );
+        await Promise.all(proms);
+
+        // 4 — Sub → Actions → Proof → Photo
+        await delay(100);
+        revealEl(subEl);
+        await delay(180);
+        revealEl(actEl);
+        await delay(160);
+        revealEl(proofEl);
+        if (photoEl) {
+          photoEl.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.22,1,0.36,1)';
+          photoEl.style.opacity = '1';
+          photoEl.style.transform = 'translateX(0)';
+        }
+      }
+
+      // ── Idle glitch loop
+      function glitchLoop() {
+        const ms = 8000 + rand(10000);
+        setTimeout(() => {
+          titleEl && titleEl.classList.add('glitching');
+          setTimeout(() => titleEl && titleEl.classList.remove('glitching'), 220);
+          glitchLoop();
+        }, ms);
+      }
+
+      boot().then(() => setTimeout(glitchLoop, 3000));
+    })();
   </script>
 </body>
 </html>
