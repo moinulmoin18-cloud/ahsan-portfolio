@@ -817,6 +817,61 @@
       .guarantee-banner { flex-direction: column; text-align: center; }
     }
 
+    /* ── BUTTON TEXT HIGHLIGHT + SHIMMER SWEEP ── */
+    @keyframes btn-sweep {
+      0%   { transform: translateX(-110%) skewX(-12deg); }
+      100% { transform: translateX(230%) skewX(-12deg); }
+    }
+
+    /* persistent text glow — violet for primary, green for pay */
+    .btn-primary, .nav-cta, .pricing-cta.primary-cta, .cta-btn,
+    .sticky-book-btn {
+      text-shadow: 0 0 20px rgba(167,139,250,0.55), 0 0 8px rgba(167,139,250,0.3);
+    }
+    .pricing-cta.pay-direct, .checkout-pay-btn,
+    .svc-btn-pay, .sticky-pay-now-btn {
+      text-shadow: 0 0 18px rgba(134,239,172,0.55), 0 0 6px rgba(134,239,172,0.3);
+    }
+    .pricing-cta.ghost-cta, .svc-btn-ghost {
+      text-shadow: 0 0 14px rgba(148,163,184,0.35);
+    }
+
+    /* shimmer sweep on hover — all buttons */
+    .btn-primary, .nav-cta, .pricing-cta, .svc-btn, .cta-btn,
+    .checkout-pay-btn, .sticky-book-btn, .sticky-pay-now-btn {
+      overflow: hidden; position: relative;
+    }
+    .btn-primary::before, .nav-cta::before, .pricing-cta::before,
+    .svc-btn::before, .cta-btn::before, .checkout-pay-btn::before,
+    .sticky-book-btn::before, .sticky-pay-now-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg,
+        transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%);
+      transform: translateX(-110%) skewX(-12deg);
+      pointer-events: none; border-radius: inherit;
+      z-index: 1;
+    }
+    .btn-primary:hover::before, .nav-cta:hover::before, .pricing-cta:hover::before,
+    .svc-btn:hover::before, .cta-btn:hover::before, .checkout-pay-btn:hover::before,
+    .sticky-book-btn:hover::before, .sticky-pay-now-btn:hover::before {
+      animation: btn-sweep 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    /* keep text + icon above shimmer overlay */
+    .btn-primary *, .nav-cta *, .pricing-cta *, .svc-btn *,
+    .cta-btn *, .checkout-pay-btn *, .sticky-book-btn *,
+    .sticky-pay-now-btn * { position: relative; z-index: 2; }
+
+    /* text brightness pop on hover */
+    .btn-primary:hover, .nav-cta:hover, .pricing-cta.primary-cta:hover,
+    .cta-btn:hover, .sticky-book-btn:hover {
+      text-shadow: 0 0 28px rgba(167,139,250,0.8), 0 0 10px rgba(255,255,255,0.4);
+    }
+    .pricing-cta.pay-direct:hover, .checkout-pay-btn:hover,
+    .svc-btn-pay:hover, .sticky-pay-now-btn:hover {
+      text-shadow: 0 0 26px rgba(134,239,172,0.8), 0 0 10px rgba(255,255,255,0.35);
+    }
+
     /* ═══════════════════════════════════════════════════════
        FUTURISTIC AGGRESSIVE 2D ANIMATIONS
     ═══════════════════════════════════════════════════════ */
